@@ -5,6 +5,7 @@ import knex from 'knex';
 import handleRegister from "./controller/register.js";
 import handleSignin from './controller/signin.js';
 import handleImage from './controller/image.js';
+import handleApi from './controller/API.js';
 import handleProfile from './controller/profile.js';
 
 const db = knex ({
@@ -33,6 +34,8 @@ app.post('/register',handleRegister(db, bcrypt))
 app.get('/profile/:id',handleProfile(db));
 
 app.put('/image',handleImage(db));
+
+app.post('/api',handleApi());
 
 app.listen(3001, () =>{
 });
