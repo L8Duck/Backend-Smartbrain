@@ -7,19 +7,24 @@ import handleSignin from './controller/signin.js';
 import handleImage from './controller/image.js';
 import handleApi from './controller/API.js';
 import handleProfile from './controller/profile.js';
+import dotenv from "dotenv";
 
+dotenv.config();
+//process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const db = knex ({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      port : 5432,
-      user : 'postgres',
-      password : '020804',
-      database : 'smart-brain'
+      host: process.env.DATABASE_URL,
+      ssl: {rejectUnauthorized: false},
+      port: 5432,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PW,
+      database: process.env.DATABASE_DB
     }
   });
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(cors());
 
@@ -37,5 +42,6 @@ app.put('/image',handleImage(db));
 
 app.post('/api',handleApi());
 
-app.listen(3001, () =>{
+app.listen(PORT, () =>{
+  console.log(`app is running on port ${PORT}`)
 });

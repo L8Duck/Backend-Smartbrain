@@ -1,8 +1,12 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const handleApi = () => (req, res) => {
 const MODEL_ID = 'face-detection';
-const PAT = '5cc151338e6f459cbfd2bb87aa839500';
-const USER_ID = 'vmkhlz790uou';       
-const APP_ID = 'smart-brain';    
+const PAT =  process.env.PAT; 
+const USER_ID = process.env.USER_ID      
+const APP_ID = process.env.APP_ID;     
 
 const returnRequestOption = (imageURL) => {
 const IMAGE_URL = imageURL;
